@@ -1,38 +1,95 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\KaryaController;
-
-Route::get('/karya', [KaryaController::class, 'index']);
+use Illuminate\Support\Facades\Http;
 
 Route::get('/', function () {
-    return view('beranda');
-})->name('beranda'); //memberi nama route pada laravel untuk memudahkan referensi
+    $works = collect();
+    try {
+        $res = Http::get(env('API_BASE_URL') . '/api/works');
+        if ($res->successful()) {
+            $works = collect($res->json())->where('fileType', 'Fotografi')->take(4);
+        }
+    } catch (\Exception $e) {}
+    return view('beranda', compact('works'));
+})->name('beranda');
 
 Route::get('/anggota', function () {
-    return view('anggota');
+    $members = collect();
+    try {
+        $res = Http::get(env('API_BASE_URL') . '/api/members');
+        if ($res->successful()) {
+            $members = collect($res->json());
+        }
+    } catch (\Exception $e) {}
+    return view('anggota', compact('members'));
 })->name('anggota');
 
 Route::get('/artikel', function () {
-    return view('artikel');
+    $articles = collect();
+    try {
+        $res = Http::get(env('API_BASE_URL') . '/api/articles');
+        if ($res->successful()) {
+            $articles = collect($res->json()['data'] ?? []);
+        }
+    } catch (\Exception $e) {}
+    return view('artikel', compact('articles'));
 })->name('artikel');
 
 Route::get('/materi', function () {
-    return view('materi');
+    $materials = collect();
+    try {
+        $res = Http::get(env('API_BASE_URL') . '/api/materials');
+        if ($res->successful()) {
+            $materials = collect($res->json());
+        }
+    } catch (\Exception $e) {}
+    return view('materi', compact('materials'));
 })->name('materi');
 
 Route::get('/materi/fotografi', function () {
-    return view('materi_fotografi');
+    $materiFiltered = collect();
+    try {
+        $res = \Illuminate\Support\Facades\Http::get(env('API_BASE_URL') . '/api/materials');
+        if ($res->successful()) {
+            $materiFiltered = collect($res->json())
+                ->filter(fn($m) => str_contains(strtolower($m['title'] ?? ''), 'fotografi'));
+        }
+    } catch (\Exception $e) {}
+    return view('materi_fotografi', compact('materiFiltered'));
 })->name('materi.fotografi');
 
 Route::get('/materi/videografi', function () {
-    return view('materi_videografi');
+    $materiFiltered = collect();
+    try {
+        $res = \Illuminate\Support\Facades\Http::get(env('API_BASE_URL') . '/api/materials');
+        if ($res->successful()) {
+            $materiFiltered = collect($res->json())
+                ->filter(fn($m) => str_contains(strtolower($m['title'] ?? ''), 'videografi'));
+        }
+    } catch (\Exception $e) {}
+    return view('materi_videografi', compact('materiFiltered'));
 })->name('materi.videografi');
 
 Route::get('/materi/editing', function () {
-    return view('materi_editing');
+    $materiFiltered = collect();
+    try {
+        $res = \Illuminate\Support\Facades\Http::get(env('API_BASE_URL') . '/api/materials');
+        if ($res->successful()) {
+            $materiFiltered = collect($res->json())
+                ->filter(fn($m) => str_contains(strtolower($m['title'] ?? ''), 'editing'));
+        }
+    } catch (\Exception $e) {}
+    return view('materi_editing', compact('materiFiltered'));
 })->name('materi.editing');
 
 Route::get('/karya', function () {
-    return view('karya');
+    $works = collect();
+    try {
+        $res = Http::get(env('API_BASE_URL') . '/api/works');
+        if ($res->successful()) {
+            $works = collect($res->json());
+        }
+    } catch (\Exception $e) {}
+    return view('karya', compact('works'));
 })->name('karya');

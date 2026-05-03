@@ -4,61 +4,42 @@
 
 <style>
     .submateri-page { padding: 28px 80px 80px; background: var(--white); }
-
     .back-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        text-decoration: none;
-        color: var(--text);
-        font-size: 14px;
-        margin-bottom: 20px;
-        transition: color 0.2s;
+        display: inline-flex; align-items: center; gap: 8px;
+        text-decoration: none; color: var(--text); font-size: 14px;
+        margin-bottom: 20px; transition: color 0.2s;
     }
     .back-btn:hover { color: var(--teal); }
-
-    .submateri-page h1 {
-        font-family: var(--font-serif);
-        font-size: 36px;
-        font-weight: 500;
-        margin-bottom: 32px;
-    }
+    .submateri-page h1 { font-family: var(--font-serif); font-size: 36px; font-weight: 500; margin-bottom: 32px; }
 
     .materi-list { display: flex; flex-direction: column; gap: 20px; }
-
     .materi-item {
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 24px;
-        background: var(--white);
+        border: 1px solid var(--border); border-radius: 12px;
+        padding: 24px; background: var(--white);
         box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
-
     .materi-item h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
-    .materi-item .materi-desc { font-size: 14px; color: var(--text-light); margin-bottom: 14px; text-decoration: underline; cursor: pointer; }
-    .materi-item .materi-desc-plain { font-size: 14px; color: var(--text-light); margin-bottom: 14px; }
+    .materi-item .materi-desc { font-size: 14px; color: var(--text-light); margin-bottom: 14px; }
+
+    .materi-drive-btn {
+        display: inline-flex; align-items: center; gap: 8px;
+        background: var(--teal); color: var(--white);
+        text-decoration: none; font-size: 13px; font-weight: 500;
+        padding: 9px 18px; border-radius: 50px; margin-bottom: 16px;
+        transition: background 0.2s;
+    }
+    .materi-drive-btn:hover { background: var(--teal-dark); }
 
     .materi-embed {
-        width: 460px;
-        max-width: 100%;
-        height: 300px;
-        background: #d8d8d8;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #999;
-        font-size: 13px;
-        overflow: hidden;
+        width: 460px; max-width: 100%; height: 300px;
+        border: none; border-radius: 8px; background: #f5f5f5; display: block;
     }
-    .materi-embed iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-        border-radius: 8px;
-    }
-
     .materi-date { font-size: 12px; color: var(--text-light); margin-top: 10px; }
+
+    .materi-empty {
+        text-align: center; padding: 60px 20px;
+        color: var(--text-light); font-size: 15px;
+    }
 
     @media (max-width: 1024px) { .submateri-page { padding: 24px 40px 60px; } }
     @media (max-width: 768px) {
@@ -80,29 +61,35 @@
     <h1>Materi Fotografi</h1>
 
     <div class="materi-list">
-        @php
-            $materis = [
-                ['title' => 'Pengenalan Dasar Fotografi', 'desc' => 'Membahas jenis kamera dan fungsi dasar kamera', 'date' => 'Sabtu, 6 Desember 2025', 'link' => true],
-                ['title' => 'Pengenalan Dasar Fotografi', 'desc' => 'Membahas jenis kamera dan fungsi dasar kamera', 'date' => 'Sabtu, 6 Desember 2025', 'link' => false],
-            ];
-        @endphp
-
-        @foreach($materis as $m)
+        @forelse($materiFiltered as $m)
         <div class="materi-item">
             <h3>{{ $m['title'] }}</h3>
-            @if($m['link'])
-                <p class="materi-desc">{{ $m['desc'] }}</p>
-            @else
-                <p class="materi-desc-plain">{{ $m['desc'] }}</p>
+            <p class="materi-desc">{{ $m['description'] ?? '' }}</p>
+
+            @if(!empty($m['googleDriveLink']))
+            <a href="{{ $m['googleDriveLink'] }}" class="materi-drive-btn" target="_blank" rel="noopener">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                    <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+                Buka di Google Drive
+            </a>
+
+            {{-- Embed preview --}}
+            <iframe
+                src="{{ str_replace(['/edit', '/view'], '/preview', $m['googleDriveLink']) }}"
+                class="materi-embed"
+                allowfullscreen>
+            </iframe>
             @endif
-            <div class="materi-embed">
-                {{-- Ganti src dengan embed Google Drive / YouTube Anda --}}
-                {{-- Contoh: <iframe src="https://drive.google.com/file/d/FILE_ID/preview"></iframe> --}}
-                <span>Embed Materi di Sini<br><small style="display:block;margin-top:6px;text-align:center">Ganti dengan iframe Google Drive / YouTube</small></span>
-            </div>
-            <p class="materi-date">Update: {{ $m['date'] }}</p>
+
+            <p class="materi-date">Update: {{ isset($m['updated_at']) ? \Carbon\Carbon::parse($m['updated_at'])->translatedFormat('l, d F Y') : '-' }}</p>
         </div>
-        @endforeach
+        @empty
+        <div class="materi-empty">
+            <p>Belum ada materi fotografi yang tersedia.</p>
+        </div>
+        @endforelse
     </div>
 </div>
 

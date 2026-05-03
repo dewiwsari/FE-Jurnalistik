@@ -37,7 +37,6 @@
         height: 200px;
         object-fit: cover;
         display: block;
-        background: #ddd;
     }
     .materi-card-img-placeholder {
         width: 100%;
@@ -50,11 +49,9 @@
 
     .materi-card-body { padding: 16px; }
     .materi-card-body h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
-    .materi-card-body p { font-size: 13px; color: var(--text-light); line-height: 1.5; }
+    .materi-card-body p  { font-size: 13px; color: var(--text-light); line-height: 1.5; }
 
-    @media (max-width: 1024px) {
-        .materi-page { padding: 40px 40px 60px; }
-    }
+    @media (max-width: 1024px) { .materi-page { padding: 40px 40px 60px; } }
     @media (max-width: 768px) {
         .materi-page { padding: 28px 20px 48px; }
         .materi-page h1 { font-size: 26px; margin-bottom: 24px; }
@@ -68,7 +65,7 @@
 
     <div class="materi-grid">
 
-        <!-- Fotografi -->
+        {{-- FOTOGRAFI --}}
         <a href="{{ route('materi.fotografi') }}" class="materi-card">
             @if(file_exists(public_path('images/cover-fotografi.jpg')))
                 <img src="{{ asset('images/cover-fotografi.jpg') }}" alt="Materi Fotografi" class="materi-card-img">
@@ -82,11 +79,11 @@
             @endif
             <div class="materi-card-body">
                 <h3>Materi Fotografi</h3>
-                <p>Kumpulan Materi Fotografi - Jurnalistik SMA Negeri 2 Depok</p>
+                <p>Kumpulan Materi Fotografi - Jurnalistik SMA Negeri 12 Depok</p>
             </div>
         </a>
 
-        <!-- Videografi -->
+        {{-- VIDEOGRAFI --}}
         <a href="{{ route('materi.videografi') }}" class="materi-card">
             @if(file_exists(public_path('images/cover-videografi.jpg')))
                 <img src="{{ asset('images/cover-videografi.jpg') }}" alt="Materi Videografi" class="materi-card-img">
@@ -100,11 +97,11 @@
             @endif
             <div class="materi-card-body">
                 <h3>Materi Videografi</h3>
-                <p>Kumpulan Materi Videografi - Jurnalistik SMA Negeri 2 Depok</p>
+                <p>Kumpulan Materi Videografi - Jurnalistik SMA Negeri 12 Depok</p>
             </div>
         </a>
 
-        <!-- Editing -->
+        {{-- EDITING --}}
         <a href="{{ route('materi.editing') }}" class="materi-card">
             @if(file_exists(public_path('images/cover-editing.jpg')))
                 <img src="{{ asset('images/cover-editing.jpg') }}" alt="Materi Editing" class="materi-card-img">
@@ -117,7 +114,7 @@
             @endif
             <div class="materi-card-body">
                 <h3>Materi Editing</h3>
-                <p>Kumpulan Materi Editing - Jurnalistik SMA Negeri 2 Depok</p>
+                <p>Kumpulan Materi Editing - Jurnalistik SMA Negeri 12 Depok</p>
             </div>
         </a>
 

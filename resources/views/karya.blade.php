@@ -3,7 +3,7 @@
 @section('content')
 
 <style>
-    /* PENGHARGAAN */
+    /* PENGHARGAAN — putih */
     .penghargaan-section {
         padding: 60px 80px 50px;
         text-align: center;
@@ -15,11 +15,7 @@
         font-weight: 400;
         margin-bottom: 36px;
     }
-    .penghargaan-grid {
-        display: flex;
-        justify-content: center;
-        gap: 24px;
-    }
+    .penghargaan-grid { display: flex; justify-content: center; gap: 24px; }
     .penghargaan-card {
         border: 1px solid var(--border);
         border-radius: 10px;
@@ -30,31 +26,21 @@
         transition: transform 0.2s;
     }
     .penghargaan-card:hover { transform: translateY(-3px); }
-    .penghargaan-img {
-        width: 100%;
-        height: 160px;
-        object-fit: cover;
-        background: #fde8d8;
-        display: block;
-    }
+    .penghargaan-img { width: 100%; height: 160px; object-fit: cover; display: block; }
     .penghargaan-img-placeholder {
-        width: 100%;
-        height: 160px;
+        width: 100%; height: 160px;
         background: linear-gradient(135deg, #fde8d8, #f8c4a0);
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: flex; align-items: center; justify-content: center;
     }
     .penghargaan-body { padding: 14px; }
     .penghargaan-body h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
-    .penghargaan-body p { font-size: 12px; color: var(--text-light); }
+    .penghargaan-body p  { font-size: 12px; color: var(--text-light); }
 
-    /* FOTOGRAFI / VIDEOGRAFI SECTION */
-    .karya-kategori {
-        padding: 50px 80px;
-    }
+    /* SHARED KARYA */
+    .karya-kategori { padding: 50px 80px; }
     .karya-kategori.fotografi  { background: var(--bg-light); }
     .karya-kategori.videografi { background: var(--white); }
+    .karya-kategori.penulisan  { background: var(--bg-light); }
 
     .karya-kategori h2 {
         font-family: var(--font-serif);
@@ -77,33 +63,13 @@
         background: var(--white);
         box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .karya-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
-
-    .karya-card-img {
-        width: 100%;
-        height: 90px;
-        object-fit: cover;
-        display: block;
-        background: #c8d6d2;
-    }
-    .karya-card-img-placeholder {
-        width: 100%;
-        height: 90px;
-        background: linear-gradient(135deg, #c8d6d2, #a0b8b2);
-    }
-    .karya-card-body { padding: 12px; }
-    .karya-card-body h4 { font-size: 13px; font-weight: 600; margin-bottom: 6px; line-height: 1.4; }
-    .karya-meta { font-size: 11px; color: var(--text-light); display: flex; align-items: center; gap: 4px; margin-bottom: 4px; }
-    .karya-link { font-size: 11px; color: var(--teal); text-decoration: none; display: flex; align-items: center; gap: 3px; margin-bottom: 4px; }
-    .karya-cover { font-size: 11px; color: var(--text-light); }
-    /* Card style samping-sampingan untuk fotografi */
-    .karya-card.samping {
         display: flex;
         flex-direction: row;
         align-items: stretch;
     }
-    .karya-card.samping img.karya-thumb {
+    .karya-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+
+    .karya-card img.karya-thumb {
         width: 110px;
         min-width: 110px;
         height: 100%;
@@ -113,12 +79,32 @@
         display: block;
         flex-shrink: 0;
     }
-    .karya-card.samping .karya-card-img-placeholder {
+    .karya-card-img-placeholder {
         width: 110px;
         min-width: 110px;
         min-height: 120px;
+        background: linear-gradient(135deg, #c8d6d2, #a0b8b2);
         flex-shrink: 0;
     }
+
+    .karya-card-body { padding: 12px; flex: 1; min-width: 0; }
+    .karya-card-body h4 { font-size: 12px; font-weight: 600; margin-bottom: 6px; line-height: 1.4; }
+    .karya-meta { font-size: 10px; color: var(--text-light); display: flex; align-items: center; gap: 3px; margin-bottom: 4px; }
+    .karya-link { font-size: 10px; color: var(--teal); text-decoration: none; display: flex; align-items: center; gap: 3px; margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .karya-cover { font-size: 10px; color: var(--text-light); }
+
+    /* Card samping untuk fotografi */
+    .karya-card.samping { display: flex; flex-direction: row; }
+
+    /* Kosong */
+    .karya-empty {
+        text-align: center;
+        padding: 40px 20px;
+        color: var(--text-light);
+        font-size: 14px;
+        grid-column: 1 / -1;
+    }
+
     @media (max-width: 1024px) {
         .penghargaan-section, .karya-kategori { padding: 40px 40px; }
         .karya-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
@@ -131,12 +117,17 @@
         .karya-card.samping .karya-card-img-placeholder { width: 80px; min-width: 80px; }
         .penghargaan-card { width: 180px; }
     }
-    @media (max-width: 480px) {
-        .karya-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 480px) { .karya-grid { grid-template-columns: 1fr; } }
 </style>
 
-<!-- PENGHARGAAN -->
+@php
+    // Pisahkan works berdasarkan fileType dari ERD
+    $fotografi  = $works->filter(fn($w) => ($w['fileType'] ?? '') === 'Fotografi');
+    $videografi = $works->filter(fn($w) => ($w['fileType'] ?? '') === 'Videografi');
+    $penulisan  = $works->filter(fn($w) => ($w['fileType'] ?? '') === 'Penulisan');
+@endphp
+
+<!-- PENGHARGAAN — putih -->
 <section class="penghargaan-section">
     <h2>Penghargaan</h2>
     <div class="penghargaan-grid">
@@ -158,64 +149,93 @@
     </div>
 </section>
 
-<!-- FOTOGRAFI -->
+<!-- FOTOGRAFI — hijau -->
 <section class="karya-kategori fotografi">
     <h2>Fotografi</h2>
     <div class="karya-grid">
-        @php
-            $fotoKaryas = [
-                ['img' => 'karya1.png', 'judul' => 'Hunting Foto Taman Ismail Marzuki', 'tanggal' => 'Sabtu, 6 Desember 2025', 'link' => 'https://drive.google.com/file', 'cover' => 'Ilya Saruni'],
-                ['img' => 'karya1.png', 'judul' => 'Hunting Foto Taman Ismail Marzuki', 'tanggal' => 'Sabtu, 6 Desember 2025', 'link' => 'https://drive.google.com/file', 'cover' => 'Ilya Saruni'],
-                ['img' => 'karya1.png', 'judul' => 'Hunting Foto Taman Ismail Marzuki', 'tanggal' => 'Sabtu, 6 Desember 2025', 'link' => 'https://drive.google.com/file', 'cover' => 'Ilya Saruni'],
-                ['img' => 'karya1.png', 'judul' => 'Hunting Foto Taman Ismail Marzuki', 'tanggal' => 'Sabtu, 6 Desember 2025', 'link' => 'https://drive.google.com/file', 'cover' => 'Ilya Saruni'],
-            ];
-        @endphp
-
-        @foreach($fotoKaryas as $karya)
+        @forelse($fotografi as $karya)
         <div class="karya-card samping">
-            @if(file_exists(public_path('images/' . $karya['img'])))
-                <img src="{{ asset('images/' . $karya['img']) }}" alt="{{ $karya['judul'] }}" class="karya-thumb">
+            @if(!empty($karya['cover_image']))
+                <img src="{{ $karya['cover_image'] }}" alt="{{ $karya['title'] }}" class="karya-thumb">
             @else
                 <div class="karya-card-img-placeholder"></div>
             @endif
             <div class="karya-card-body">
-                <h4>{{ $karya['judul'] }}</h4>
+                <h4>{{ $karya['title'] }}</h4>
                 <div class="karya-meta">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                    {{ $karya['tanggal'] }}
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    {{ isset($karya['created_at']) ? \Carbon\Carbon::parse($karya['created_at'])->translatedFormat('l, d F Y') : '-' }}
                 </div>
-                <a href="{{ $karya['link'] }}" class="karya-link" target="_blank">
+                <a href="{{ $karya['url'] ?? '#' }}" class="karya-link" target="_blank">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-                    {{ $karya['link'] }}
+                    {{ $karya['url'] ?? '-' }}
                 </a>
-                <p class="karya-cover">Cover by: {{ $karya['cover'] }}</p>
+                <p class="karya-cover">Cover by: {{ $karya['cover_by'] ?? '-' }}</p>
             </div>
         </div>
-        @endforeach
+        @empty
+        <div class="karya-empty">Belum ada karya fotografi.</div>
+        @endforelse
     </div>
 </section>
 
-<!-- VIDEOGRAFI -->
+<!-- VIDEOGRAFI — putih -->
 <section class="karya-kategori videografi">
     <h2>Videografi</h2>
     <div class="karya-grid">
-        @for($i = 0; $i < 4; $i++)
-        <div class="karya-card">
-            <div class="karya-card-img-placeholder"></div>
+        @forelse($videografi as $karya)
+        <div class="karya-card samping">
+            @if(!empty($karya['cover_image']))
+                <img src="{{ $karya['cover_image'] }}" alt="{{ $karya['title'] }}" class="karya-thumb">
+            @else
+                <div class="karya-card-img-placeholder"></div>
+            @endif
             <div class="karya-card-body">
-                <h4>Hunting Foto Taman Ismail Marzuki</h4>
+                <h4>{{ $karya['title'] }}</h4>
                 <div class="karya-meta">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                    Sabtu, 6 Desember 2025
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    {{ isset($karya['created_at']) ? \Carbon\Carbon::parse($karya['created_at'])->translatedFormat('l, d F Y') : '-' }}
                 </div>
-                <a href="#" class="karya-link">
+                <a href="{{ $karya['url'] ?? '#' }}" class="karya-link" target="_blank">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-                    https://drive.google.com/file
+                    {{ $karya['url'] ?? '-' }}
                 </a>
-                <p class="karya-cover">Cover by: Ilya Saruni</p>
+                <p class="karya-cover">Cover by: {{ $karya['cover_by'] ?? '-' }}</p>
             </div>
         </div>
-        @endfor
+        @empty
+        <div class="karya-empty">Belum ada karya videografi.</div>
+        @endforelse
+    </div>
+</section>
+
+<!-- PENULISAN — hijau -->
+<section class="karya-kategori penulisan">
+    <h2>Penulisan</h2>
+    <div class="karya-grid">
+        @forelse($penulisan as $karya)
+        <div class="karya-card samping">
+            @if(!empty($karya['cover_image']))
+                <img src="{{ $karya['cover_image'] }}" alt="{{ $karya['title'] }}" class="karya-thumb">
+            @else
+                <div class="karya-card-img-placeholder"></div>
+            @endif
+            <div class="karya-card-body">
+                <h4>{{ $karya['title'] }}</h4>
+                <div class="karya-meta">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    {{ isset($karya['created_at']) ? \Carbon\Carbon::parse($karya['created_at'])->translatedFormat('l, d F Y') : '-' }}
+                </div>
+                <a href="{{ $karya['url'] ?? '#' }}" class="karya-link" target="_blank">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                    {{ $karya['url'] ?? '-' }}
+                </a>
+                <p class="karya-cover">Cover by: {{ $karya['cover_by'] ?? '-' }}</p>
+            </div>
+        </div>
+        @empty
+        <div class="karya-empty">Belum ada karya penulisan.</div>
+        @endforelse
     </div>
 </section>
 

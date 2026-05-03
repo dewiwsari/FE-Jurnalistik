@@ -64,6 +64,14 @@
         margin-bottom: 16px;
     }
 
+    /* Kosong / loading state */
+    .artikel-empty {
+        text-align: center;
+        padding: 60px 20px;
+        color: var(--text-light);
+        font-size: 15px;
+    }
+
     /* ─── MODAL OVERLAY ─── */
     .modal-overlay {
         display: none;
@@ -76,11 +84,8 @@
         overflow-y: auto;
         padding: 40px 20px;
     }
-    .modal-overlay.active {
-        display: flex;
-    }
+    .modal-overlay.active { display: flex; }
 
-    /* ─── MODAL BOX ─── */
     .modal-box {
         background: var(--white);
         border-radius: 16px;
@@ -96,7 +101,6 @@
         to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* Tombol silang */
     .modal-close-x {
         position: absolute;
         top: 16px;
@@ -113,7 +117,6 @@
     }
     .modal-close-x:hover { background: #f0f0f0; }
 
-    /* Cover gambar artikel */
     .modal-cover {
         width: 100%;
         max-height: 280px;
@@ -135,7 +138,6 @@
         font-size: 13px;
     }
 
-    /* Meta di dalam modal */
     .modal-meta {
         margin-top: 24px;
         margin-bottom: 6px;
@@ -145,38 +147,22 @@
         align-items: center;
         gap: 6px;
     }
-    .modal-author {
-        font-size: 13px;
-        font-weight: 700;
-        color: var(--text);
-        margin-bottom: 16px;
-    }
+    .modal-author { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 16px; }
+    .modal-title  { font-size: 17px; font-weight: 700; margin-bottom: 14px; line-height: 1.5; }
 
-    /* Judul artikel di modal */
-    .modal-title {
-        font-size: 17px;
-        font-weight: 700;
-        margin-bottom: 14px;
-        line-height: 1.5;
-    }
-
-    /* Isi artikel */
     .modal-content {
         font-size: 14px;
         line-height: 1.9;
         color: var(--text);
         text-align: justify;
     }
-    .modal-content p { margin-bottom: 12px; }
+    .modal-content p  { margin-bottom: 12px; }
     .modal-content ol { padding-left: 20px; margin-bottom: 12px; }
     .modal-content ol li { margin-bottom: 4px; }
 
-    /* Tombol Tutup di bawah */
     .modal-footer { margin-top: 28px; }
 
-    @media (max-width: 1024px) {
-        .artikel-page { padding: 20px 40px 60px; }
-    }
+    @media (max-width: 1024px) { .artikel-page { padding: 20px 40px 60px; } }
     @media (max-width: 768px) {
         .artikel-page { padding: 16px 20px 48px; }
         .artikel-body { flex-direction: column; gap: 14px; }
@@ -193,73 +179,21 @@
 <div class="artikel-page">
     <h1 class="page-title">Artikel</h1>
 
-    @php
-        $articles = [
-            [
-                'title'   => 'Daftar Nama Siswa yang Berhasil Lolos SNBP 2026',
-                'excerpt' => 'Kabar membanggakan datang dari SMAN 1 Contoh. Sejumlah siswa berhasil lolos dalam Seleksi Nasional Berdasarkan Prestasi (SNBP) tahun 2026 dan diterima di berbagai perguruan tinggi negeri di Indonesia.',
-                'date'    => 'Sabtu, 6 Desember 2025',
-                'author'  => 'Nama lengkap',
-                'thumb'   => 'SNBP.png',   // gambar thumbnail di card
-                'cover'   => 'SNBP.png', // gambar cover di popup (boleh sama dengan thumb)
-                'isi'     => '
-                    <p>Kabar membanggakan datang dari SMAN 1 Contoh. Sejumlah siswa berhasil lolos dalam Seleksi Nasional Berdasarkan Prestasi (SNBP) tahun 2026 dan diterima di berbagai perguruan tinggi negeri di Indonesia.</p>
-                    <p>SNBP merupakan jalur seleksi masuk perguruan tinggi negeri yang didasarkan pada prestasi akademik dan non-akademik siswa selama menempuh pendidikan di sekolah. Keberhasilan para siswa ini menjadi bukti dari kerja keras, dedikasi, serta dukungan dari para guru dan orang tua.</p>
-                    <p>Pihak sekolah mengucapkan selamat kepada seluruh siswa yang telah berhasil lolos melalui jalur SNBP. Diharapkan para siswa dapat terus berprestasi dan mengharumkan nama sekolah di jenjang pendidikan yang lebih tinggi.</p>
-                    <p>Berikut beberapa siswa yang berhasil lolos SNBP tahun 2026:</p>
-                    <ol>
-                        <li>Ilya Saruni – Universitas Indonesia – Ilmu Komunikasi</li>
-                        <li>Merita Windya – Institut Pertanian Bogor – Teknologi Pangan</li>
-                        <li>Wildan Nugroho – Universitas Gadjah Mada – Teknik Informatika</li>
-                        <li>Putri Tatami – Universitas Padjadjaran – Manajemen</li>
-                    </ol>
-                    <p>Sekolah juga berharap keberhasilan ini dapat menjadi motivasi bagi siswa lainnya untuk terus belajar dengan giat dan meraih prestasi terbaik.</p>
-                    <p>Sekali lagi, selamat kepada seluruh siswa yang telah berhasil lolos SNBP 2026. Semoga perjalanan akademik selanjutnya berjalan lancar dan penuh kesuksesan.</p>
-                ',
-            ],
-            [
-                'title'   => 'Daftar Nama Siswa yang Berhasil Lolos SNBP 2026',
-                'excerpt' => 'Kabar membanggakan datang dari SMAN 1 Contoh. Sejumlah siswa berhasil lolos dalam Seleksi Nasional Berdasarkan Prestasi (SNBP) tahun 2026 dan diterima di berbagai perguruan tinggi negeri di Indonesia.',
-                'date'    => 'Sabtu, 6 Desember 2025',
-                'author'  => 'Nama lengkap',
-                'thumb'   => 'SNBP.png',
-                'cover'   => 'SNBP.png',
-                'isi'     => '<p>Isi artikel kedua di sini...</p>',
-            ],
-            [
-                'title'   => 'Daftar Nama Siswa yang Berhasil Lolos SNBP 2026',
-                'excerpt' => 'Kabar membanggakan datang dari SMAN 1 Contoh. Sejumlah siswa berhasil lolos dalam Seleksi Nasional Berdasarkan Prestasi (SNBP) tahun 2026 dan diterima di berbagai perguruan tinggi negeri di Indonesia.',
-                'date'    => 'Sabtu, 6 Desember 2025',
-                'author'  => 'Nama lengkap',
-                'thumb'   => 'SNBP.png',
-                'cover'   => 'SNBP.png',
-                'isi'     => '<p>Isi artikel ketiga di sini...</p>',
-            ],
-            [
-                'title'   => 'Daftar Nama Siswa yang Berhasil Lolos SNBP 2026',
-                'excerpt' => 'Kabar membanggakan datang dari SMAN 1 Contoh. Sejumlah siswa berhasil lolos dalam Seleksi Nasional Berdasarkan Prestasi (SNBP) tahun 2026 dan diterima di berbagai perguruan tinggi negeri di Indonesia.',
-                'date'    => 'Sabtu, 6 Desember 2025',
-                'author'  => 'Nama lengkap',
-                'thumb'   => 'SNBP.png',
-                'cover'   => 'SNBP.png',
-                'isi'     => '<p>Isi artikel keempat di sini...</p>',
-            ],
-        ];
-    @endphp
-
     <div class="artikel-list">
-        @foreach($articles as $i => $article)
+        @forelse($articles as $i => $article)
         <div class="artikel-card">
             <div class="artikel-meta">
                 <span class="artikel-meta-date">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                    {{ $article['date'] }}
+                    {{-- Ambil dari timestamps.last_update API --}}
+                    {{ $article['timestamps']['last_update'] ?? '-' }}
                 </span>
-                <span>Author: <span class="artikel-meta-author">{{ $article['author'] }}</span></span>
+                <span>Author: <span class="artikel-meta-author">{{ $article['author']['name'] ?? '-' }}</span></span>
             </div>
             <div class="artikel-body">
-                @if(file_exists(public_path('images/' . $article['thumb'])))
-                    <img src="{{ asset('images/' . $article['thumb']) }}" alt="{{ $article['title'] }}" class="artikel-thumb">
+                {{-- Thumbnail dari URL API langsung --}}
+                @if(!empty($article['thumbnail']))
+                    <img src="{{ $article['thumbnail'] }}" alt="{{ $article['title'] }}" class="artikel-thumb">
                 @else
                     <div class="artikel-thumb-placeholder">
                         <svg width="40" height="30" viewBox="0 0 80 50"><rect width="80" height="50" fill="#ddd"/><text x="40" y="30" text-anchor="middle" font-size="9" fill="#999">Gambar</text></svg>
@@ -267,37 +201,30 @@
                 @endif
                 <div class="artikel-info">
                     <h3>{{ $article['title'] }}</h3>
-                    <p>{{ $article['excerpt'] }}</p>
-                    {{-- Tombol Selengkapnya — buka modal sesuai index --}}
+                    <p>{{ $article['content_preview'] }}</p>
                     <button class="btn-teal" onclick="bukaModal({{ $i }})">Selengkapnya</button>
                 </div>
             </div>
         </div>
-        @endforeach
+
+        @empty
+        {{-- Tampil jika API kosong atau gagal --}}
+        <div class="artikel-empty">
+            <p>Belum ada artikel yang tersedia.</p>
+        </div>
+        @endforelse
     </div>
 </div>
 
 {{-- ─── MODAL POPUP ─── --}}
 <div class="modal-overlay" id="modalOverlay" onclick="tutupModalJikaLuar(event)">
     <div class="modal-box" id="modalBox">
-
-        {{-- Tombol silang --}}
         <button class="modal-close-x" onclick="tutupModal()">&#x2715;</button>
-
-        {{-- Cover gambar --}}
         <div id="modalCover"></div>
-
-        {{-- Meta --}}
-        <div class="modal-meta" id="modalDate"></div>
+        <div class="modal-meta"   id="modalDate"></div>
         <div class="modal-author" id="modalAuthor"></div>
-
-        {{-- Judul --}}
-        <div class="modal-title" id="modalTitle"></div>
-
-        {{-- Isi --}}
+        <div class="modal-title"  id="modalTitle"></div>
         <div class="modal-content" id="modalIsi"></div>
-
-        {{-- Tombol Tutup --}}
         <div class="modal-footer">
             <button class="btn-teal" onclick="tutupModal()">Tutup</button>
         </div>
@@ -305,32 +232,38 @@
 </div>
 
 <script>
-    // Data artikel dari PHP ke JavaScript
-    const artikelData = @json($articles);
+    // Kirim data dari PHP (API) ke JavaScript
+    const artikelData = @json($articles->values());
 
     function bukaModal(index) {
         const a = artikelData[index];
 
-        // Cover
+        // Cover — pakai thumbnail dari API (URL langsung, bukan path lokal)
         const coverEl = document.getElementById('modalCover');
-        const imgPath  = '/images/' + a.cover;
-        // coba load gambar, kalau gagal tampilkan placeholder
-        const img = new Image();
-        img.onload  = () => { coverEl.innerHTML = `<img src="${imgPath}" class="modal-cover" alt="${a.title}">`; };
-        img.onerror = () => { coverEl.innerHTML = `<div class="modal-cover-placeholder">Cover tidak tersedia</div>`; };
-        img.src = imgPath;
+        if (a.thumbnail) {
+            const img = new Image();
+            img.onload  = () => { coverEl.innerHTML = `<img src="${a.thumbnail}" class="modal-cover" alt="${a.title}">`; };
+            img.onerror = () => { coverEl.innerHTML = `<div class="modal-cover-placeholder">Cover tidak tersedia</div>`; };
+            img.src = a.thumbnail;
+        } else {
+            coverEl.innerHTML = `<div class="modal-cover-placeholder">Cover tidak tersedia</div>`;
+        }
 
         // Meta
         document.getElementById('modalDate').innerHTML = `
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            ${a.date}`;
-        document.getElementById('modalAuthor').textContent  = 'Author: ' + a.author;
-        document.getElementById('modalTitle').textContent   = a.title;
-        document.getElementById('modalIsi').innerHTML       = a.isi;
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+            ${a.timestamps?.last_update ?? '-'}`;
 
-        // Tampilkan overlay
+        document.getElementById('modalAuthor').textContent = 'Author: ' + (a.author?.name ?? '-');
+        document.getElementById('modalTitle').textContent  = a.title;
+
+        // Isi artikel — pakai full_content dari API
+        document.getElementById('modalIsi').innerHTML = a.full_content ?? a.content_preview ?? '';
+
         document.getElementById('modalOverlay').classList.add('active');
-        document.body.style.overflow = 'hidden'; // cegah scroll background
+        document.body.style.overflow = 'hidden';
     }
 
     function tutupModal() {
@@ -338,17 +271,11 @@
         document.body.style.overflow = '';
     }
 
-    // Klik di luar modal box → tutup
     function tutupModalJikaLuar(event) {
-        if (event.target === document.getElementById('modalOverlay')) {
-            tutupModal();
-        }
+        if (event.target === document.getElementById('modalOverlay')) tutupModal();
     }
 
-    // Tekan Escape → tutup
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') tutupModal();
-    });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') tutupModal(); });
 </script>
 
 @endsection

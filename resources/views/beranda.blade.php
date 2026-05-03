@@ -277,39 +277,29 @@
 <section class="karya-section">
     <h2>Hasil Karya</h2>
     <div class="karya-grid">
-        @php
-            $karyas = [
-                ['img' => 'karya1.png', 'judul' => 'Hunting Foto Taman Ismail Marzuki', 'tanggal' => 'Sabtu, 6 Desember 2025', 'link' => 'https://drive.google.com/file', 'cover' => 'Ilya Saruni'],
-                ['img' => 'karya1.png', 'judul' => 'Hunting Foto Taman Ismail Marzuki', 'tanggal' => 'Sabtu, 6 Desember 2025', 'link' => 'https://drive.google.com/file', 'cover' => 'Ilya Saruni'],
-                ['img' => 'karya1.png', 'judul' => 'Hunting Foto Taman Ismail Marzuki', 'tanggal' => 'Sabtu, 6 Desember 2025', 'link' => 'https://drive.google.com/file', 'cover' => 'Ilya Saruni'],
-                ['img' => 'karya1.png', 'judul' => 'Hunting Foto Taman Ismail Marzuki', 'tanggal' => 'Sabtu, 6 Desember 2025', 'link' => 'https://drive.google.com/file', 'cover' => 'Ilya Saruni'],
-            ];
-        @endphp
-
-        @foreach($karyas as $karya)
+        @forelse($works as $karya)
         <div class="karya-card">
-            {{-- Foto di kiri --}}
-            @if(file_exists(public_path('images/' . $karya['img'])))
-                <img src="{{ asset('images/' . $karya['img']) }}" alt="{{ $karya['judul'] }}" class="karya-thumb" style="width:110px; min-width:110px; height:100%; min-height:120px; object-fit:cover; object-position:center; display:block; flex-shrink:0;">
+            @if(!empty($karya['cover_image']))
+                <img src="{{ $karya['cover_image'] }}" alt="{{ $karya['title'] }}" class="karya-thumb" style="width:110px; min-width:110px; height:100%; min-height:120px; object-fit:cover; display:block; flex-shrink:0;">
             @else
                 <div class="karya-card-img-placeholder" style="width:110px; min-width:110px;"></div>
             @endif
-
-            {{-- Detail di kanan --}}
             <div class="karya-card-body">
-                <h4>{{ $karya['judul'] }}</h4>
+                <h4>{{ $karya['title'] }}</h4>
                 <div class="karya-card-meta">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                    {{ $karya['tanggal'] }}
+                    {{ isset($karya['created_at']) ? \Carbon\Carbon::parse($karya['created_at'])->translatedFormat('l, d F Y') : '-' }}
                 </div>
-                <a href="{{ $karya['link'] }}" class="karya-card-link" target="_blank">
+                <a href="{{ $karya['url'] ?? '#' }}" class="karya-card-link" target="_blank">
                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-                    {{ $karya['link'] }}
+                    {{ $karya['url'] ?? '-' }}
                 </a>
-                <p class="karya-card-cover">Cover by: {{ $karya['cover'] }}</p>
+                <p class="karya-card-cover">Cover by: {{ $karya['cover_by'] ?? '-' }}</p>
             </div>
         </div>
-        @endforeach
+        @empty
+        <p style="color:var(--text-light); font-size:13px;">Belum ada karya yang tersedia.</p>
+        @endforelse
     </div>
     <div class="karya-center">
         <a href="{{ route('karya') }}" class="btn-teal">Lihat lebih banyak</a>
