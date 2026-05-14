@@ -40,7 +40,6 @@
     .karya-kategori { padding: 50px 80px; }
     .karya-kategori.fotografi  { background: var(--bg-light); }
     .karya-kategori.videografi { background: var(--white); }
-    .karya-kategori.penulisan  { background: var(--bg-light); }
 
     .karya-kategori h2 {
         font-family: var(--font-serif);
@@ -124,7 +123,6 @@
     // Pisahkan works berdasarkan fileType dari ERD
     $fotografi  = $works->filter(fn($w) => ($w['fileType'] ?? '') === 'Fotografi');
     $videografi = $works->filter(fn($w) => ($w['fileType'] ?? '') === 'Videografi');
-    $penulisan  = $works->filter(fn($w) => ($w['fileType'] ?? '') === 'Penulisan');
 @endphp
 
 <!-- PENGHARGAAN — putih -->
@@ -205,36 +203,6 @@
         </div>
         @empty
         <div class="karya-empty">Belum ada karya videografi.</div>
-        @endforelse
-    </div>
-</section>
-
-<!-- PENULISAN — hijau -->
-<section class="karya-kategori penulisan">
-    <h2>Penulisan</h2>
-    <div class="karya-grid">
-        @forelse($penulisan as $karya)
-        <div class="karya-card samping">
-            @if(!empty($karya['cover_image']))
-                <img src="{{ $karya['cover_image'] }}" alt="{{ $karya['title'] }}" class="karya-thumb">
-            @else
-                <div class="karya-card-img-placeholder"></div>
-            @endif
-            <div class="karya-card-body">
-                <h4>{{ $karya['title'] }}</h4>
-                <div class="karya-meta">
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                    {{ isset($karya['created_at']) ? \Carbon\Carbon::parse($karya['created_at'])->translatedFormat('l, d F Y') : '-' }}
-                </div>
-                <a href="{{ $karya['url'] ?? '#' }}" class="karya-link" target="_blank">
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-                    {{ $karya['url'] ?? '-' }}
-                </a>
-                <p class="karya-cover">Cover by: {{ $karya['cover_by'] ?? '-' }}</p>
-            </div>
-        </div>
-        @empty
-        <div class="karya-empty">Belum ada karya penulisan.</div>
         @endforelse
     </div>
 </section>
